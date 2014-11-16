@@ -35,6 +35,4 @@
 	result contribution (evaluation);\
 }
 
-#define ap(name) printf("%s=%d\n", # name, 1 )
-
 #endif

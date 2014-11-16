@@ -14,7 +14,6 @@
 #include "sysfun.h"
 #include "signals.h"
 #include "stages.h"
-int a,b;
 
 
 int SYS_FUN_001(){
@@ -27,7 +26,7 @@ int SYS_FUN_001(){
 int SYS_FUN_002(){
 	entrySYS_FUN;
 	gateSYS_FUN(checkStage(StageInitial) /* || checkStage(NegativeUnlockFeedback) */);
-	context(a == b, ;, &= );
+	context(getpippo() == getpluto(), ;, &= );
 	exitSYS_FUN;
 }
 
@@ -48,13 +47,15 @@ void setup(void) {
 void loop(void)
 {
 	SYS_FUN_001();
-	a=0;
-	b=a;
+	setpippo(0);
+	setpluto(getpippo());
 	SYS_FUN_002();
-	b=1;
+	setpluto(1);
 	SYS_FUN_002();
-	setsignal(BatteryValue, 9.0);
-	setsignal(UnlockInProcess, 0);
+	s.pluto=s.pippo;
+	SYS_FUN_002();
+	setBatteryValue(9.0);
+	setUnlockInProcess(0);
 	SYS_FUN_030();
 //	printStage;
 	return;

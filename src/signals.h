@@ -12,36 +12,56 @@
 #define SIGNALS
 
 #define SIGNAL_TABLE \
-	X(BatteryValue, float)\
-	X(UnlockInProcess, int)
+	X(BatteryValue, float, %f)\
+	X(UnlockInProcess, int, %d)\
+	X(pippo, int, %d)\
+	X(pluto, int, %d)\
 
-#define X(a, b) a,
+#define X(a, b, c) a,
 enum SIGNAL {
 		SIGNAL_TABLE
 };
 #undef X
 
-#define X(a, b) # a,
+#define X(a, b, c) # a,
 char *signal_name[] = {
 		SIGNAL_TABLE
 };
 #undef X
 
-#define X(a, b) b a;
+#define X(a, b, c) b a;
 struct struct_signal{
 		SIGNAL_TABLE
 };
 #undef X
 
+
 struct struct_signal s;
 
-#define signal(name) {\
-	if(result) s.name=TRUE;\
-}
+#define X(name, type, spec) type get ## name()\
+	{\
+	return s.name;\
+	}
+	SIGNAL_TABLE
+#undef X
 
-#define printsignal(name) printf("%s = %d\n", signal_name[name], s.name);
+#define X(name, type, spec) void set ## name(type value)\
+	{\
+	s.name=value;\
+	}
+	SIGNAL_TABLE
+#undef X
 
-#define setsignal(name, value) s.name=value
+
+#define X(name, type, spec) void print ## name()\
+	{\
+	printf( #name);\
+	printf("=");\
+	printf( # spec, s.name);\
+	printf("\n");\
+	}
+	SIGNAL_TABLE
+#undef X
 
 
 #endif
