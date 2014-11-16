@@ -64,4 +64,25 @@ struct struct_signal s;
 #undef X
 
 
+/*
+#define X(name, type, spec) void print ## name()\
+	{\
+	char format[128];\
+	sprintf(format,""" %s = %s \n""", name, spec);\
+	printf(format, s.name);\
+	}
+	SIGNAL_TABLE
+#undef X
+*/
+/*
+#define X(name, type, spec) void print ## name()\
+	{\
+	char format[128];\
+	sprintf(format,"%s = %s \n", name, spec);\
+	puts(format);\
+	}
+	SIGNAL_TABLE
+#undef X
+*/
+
 #endif
