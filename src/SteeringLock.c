@@ -9,54 +9,58 @@
  */
 #define TRACE
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "sysfun.h"
 #include "signals.h"
 #include "stages.h"
 
-
-int SYS_FUN_001(){
-	entrySYS_FUN;
-	gateSYS_FUN(checkStage(StageInitial));
+/* define here SYS_FUN behavior */
+void SYS_FUN_001(){
+	SYS_FUN_entry;
+	SYS_FUN_gate(Stage_check(StageInitial));
 	context(4 == 4, printf("zero\n"); printf("uno\n"); printf("due\n");, &= );
-	exitSYS_FUN;
+	SYS_FUN_exit;
 }
 
-int SYS_FUN_002(){
-	entrySYS_FUN;
-	gateSYS_FUN(checkStage(StageInitial) /* || checkStage(NegativeUnlockFeedback) */);
-	context(getpippo() == getpluto(), ;, &= );
-	exitSYS_FUN;
+void SYS_FUN_002(){
+	SYS_FUN_entry;
+	SYS_FUN_gate(Stage_check(StageInitial) /* || Stage_check(NegativeUnlockFeedback) */);
+	context(pippo_get() == pluto_get(), ;, &= );
+	SYS_FUN_exit;
 }
 
-int SYS_FUN_030(){
-	entrySYS_FUN;
-	gateSYS_FUN(checkStage(StageInitial) /* || checkStage(NegativeUnlockFeedback) */);
+void SYS_FUN_030(){
+	SYS_FUN_entry;
+	SYS_FUN_gate(Stage_check(StageInitial) /* || Stage_check(NegativeUnlockFeedback) */);
 	context(s.BatteryValue > 7.0 && s.BatteryValue < 16.0 && !s.UnlockInProcess, ;, &=);
-	setStage(NegativeUnlockFeedback);
-	exitSYS_FUN;
+	Stage_set(NegativeUnlockFeedback);
+	SYS_FUN_exit;
 }
+/* end of define SYS_FUN behavior */
 
-
+/* called once at startup */
 void setup(void) {
 	puts("Hello World!\n"); /* prints SteeringLock welcome */
-	initStage;
+	Stage_init;
 }
 
+/* called every 20 ms */
 void loop(void)
 {
-	SYS_FUN_001();
-	setpippo(0);
-	setpluto(getpippo());
-	SYS_FUN_002();
-	setpluto(1);
-	SYS_FUN_002();
+	pippo_set(0);
+	pluto_set(pippo_get());
+	SYS_FUN_iterate();
+	pluto_set(1);
+	SYS_FUN_iterate();
 	s.pluto=s.pippo;
-	SYS_FUN_002();
-	setBatteryValue(9.0);
-	setUnlockInProcess(0);
-	SYS_FUN_030();
-//	printStage;
+	SYS_FUN_iterate();
+	BatteryValue_set(9.0);
+//	printBatteryValue();
+	UnlockInProcess_set(0);
+	SYS_FUN_iterate();
+//	Stage_print;
 	return;
 }
+

@@ -10,79 +10,35 @@
 
 #ifndef SINGNALS
 #define SIGNALS
+#include "signal_table.h"
 
-#define SIGNAL_TABLE \
-	X(BatteryValue, float, %f)\
-	X(UnlockInProcess, int, %d)\
-	X(pippo, int, %d)\
-	X(pluto, int, %d)\
-
-#define X(a, b, c) a,
+#define X(name, type, spec) name,
 enum SIGNAL {
 		SIGNAL_TABLE
 };
 #undef X
 
-#define X(a, b, c) # a,
-char *signal_name[] = {
+
+#define X(name, type, spec) type name;
+typedef struct {
 		SIGNAL_TABLE
-};
+}Struct_signal;
 #undef X
 
-#define X(a, b, c) b a;
-struct struct_signal{
-		SIGNAL_TABLE
-};
-#undef X
+extern char *signal_name[];
+extern Struct_signal s;
 
-
-struct struct_signal s;
-
-#define X(name, type, spec) type get ## name()\
-	{\
-	return s.name;\
-	}
+#define X(name, type, spec) type name ## _get();
 	SIGNAL_TABLE
 #undef X
 
-#define X(name, type, spec) void set ## name(type value)\
-	{\
-	s.name=value;\
-	}
+#define X(name, type, spec) void name ## _set(type value);
 	SIGNAL_TABLE
 #undef X
 
 
-#define X(name, type, spec) void print ## name()\
-	{\
-	printf( #name);\
-	printf("=");\
-	printf( # spec, s.name);\
-	printf("\n");\
-	}
+#define X(name, type, spec) void name ## _print();
 	SIGNAL_TABLE
 #undef X
-
-
-/*
-#define X(name, type, spec) void print ## name()\
-	{\
-	char format[128];\
-	sprintf(format,""" %s = %s \n""", name, spec);\
-	printf(format, s.name);\
-	}
-	SIGNAL_TABLE
-#undef X
-*/
-/*
-#define X(name, type, spec) void print ## name()\
-	{\
-	char format[128];\
-	sprintf(format,"%s = %s \n", name, spec);\
-	puts(format);\
-	}
-	SIGNAL_TABLE
-#undef X
-*/
 
 #endif

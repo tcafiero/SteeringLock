@@ -18,17 +18,24 @@
 #define FALSE 0;
 #endif
 
+#include "sysfun_table.h"
+#define X(name) void name();
+	SYS_FUN_TABLE
+#undef X
 
-#define entrySYS_FUN int result=1
+void SYS_FUN_iterate();
+
+
+#define SYS_FUN_entry int result=1
 
 #ifdef TRACE
-#define exitSYS_FUN printf("%s=%d\n", __func__, result );\
-		return result
+#define SYS_FUN_exit printf("%s=%d\n", __func__, result );\
+		return
 #else
-#define exitSYS_FUN return result
+#define SYS_FUN_exit return
 #endif
 
-#define gateSYS_FUN(condition) if(!(condition)) return result
+#define SYS_FUN_gate(condition) if(!(condition)) return
 
 #define context(evaluation, action, contribution) {\
 	if(evaluation) {action;}\

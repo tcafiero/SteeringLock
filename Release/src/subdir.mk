@@ -5,14 +5,22 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../src/SteeringLock.c \
+../src/SteeringLock_wrap.c \
 ../src/engine.c 
+
+O_SRCS += \
+../src/SteeringLock.o \
+../src/SteeringLock_wrap.o \
+../src/engine.o 
 
 OBJS += \
 ./src/SteeringLock.o \
+./src/SteeringLock_wrap.o \
 ./src/engine.o 
 
 C_DEPS += \
 ./src/SteeringLock.d \
+./src/SteeringLock_wrap.d \
 ./src/engine.d 
 
 

@@ -1,27 +1,16 @@
 /*
  ============================================================================
- Name        : SteeringLock.c
+ Name        : signal_table.h
  Author      : Toni Cafiero
  Version     :
  Copyright   : Holistic Systems all right reserved
  Description : Railway signalling in C, Ansi-style
  ============================================================================
  */
-#include <unistd.h>
-#include <stdio.h>
 
-
-void setup(void);
-void loop(void);
-
-
-int main(void) {
-	setup();
-	while(1)
-	{
-		loop();
-		fflush(stdout);
-		usleep(20000);
-	}
-	return 1;
-}
+/* define here Signal table */
+#define SIGNAL_TABLE \
+	X(BatteryValue, float, %f)\
+	X(UnlockInProcess, int, %d)\
+	X(pippo, int, %d)\
+	X(pluto, int, %d)

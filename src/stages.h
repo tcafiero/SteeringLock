@@ -10,17 +10,7 @@
 #ifndef STAGE_H
 #define STAGE_H
 
-#define STAGE_TABLE \
-	X(StageInitial)\
-	X(NegativeUnlockFeedback)\
-	X(ESLReceivesAValidUnlockCommand)\
-	X(NegativeUnlockDiagnosticFeedback)\
-	X(ESLStartsToPerformAnUnlockActuation)\
-	X(ESLRecaivesAValidLockCommand)\
-	X(ESLReceivesValidKeyOffSignals)\
-	X(NegativeLockFeedback)\
-	X(ESLReceivesSafeVSDValue)\
-	X(ESLStartsToPerformALockActuation)
+#include "stages_table.h"
 
 #define X(a) a,
 enum STAGE {
@@ -28,22 +18,18 @@ enum STAGE {
 };
 #undef X
 
-#define X(a) # a,
-char *stage_name[] = {
-		STAGE_TABLE
-};
-#undef X
+extern char *stage_name[];
 
-enum STAGE Stage = StageInitial;
+extern enum STAGE Stage;
 
-#define initStage Stage=StageInitial
+#define Stage_init Stage=StageInitial
 
-#define setStage(name) {\
+#define Stage_set(name) {\
 		if(result) Stage=name;\
 	}
 
-#define checkStage(name) (Stage == (name))
+#define Stage_check(name) (Stage == (name))
 
-#define printStage printf("Stage = %s\n", stage_name[Stage]);
+#define Stage_print printf("Stage = %s\n", stage_name[Stage]);
 
 #endif

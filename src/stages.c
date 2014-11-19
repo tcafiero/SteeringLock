@@ -1,27 +1,19 @@
 /*
  ============================================================================
- Name        : SteeringLock.c
+ Name        : stages.c
  Author      : Toni Cafiero
  Version     :
  Copyright   : Holistic Systems all right reserved
  Description : Railway signalling in C, Ansi-style
  ============================================================================
  */
-#include <unistd.h>
-#include <stdio.h>
+#include "stages.h"
 
+#define X(a) # a,
+char *stage_name[] = {
+		STAGE_TABLE
+};
+#undef X
 
-void setup(void);
-void loop(void);
+enum STAGE Stage = StageInitial;
 
-
-int main(void) {
-	setup();
-	while(1)
-	{
-		loop();
-		fflush(stdout);
-		usleep(20000);
-	}
-	return 1;
-}

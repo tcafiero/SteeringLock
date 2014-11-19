@@ -5,15 +5,27 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../src/SteeringLock.c \
-../src/engine.c 
+../src/engine.c \
+../src/signals.c \
+../src/stages.c \
+../src/sysfun.c 
+
+O_SRCS += \
+../src/engine.o 
 
 OBJS += \
 ./src/SteeringLock.o \
-./src/engine.o 
+./src/engine.o \
+./src/signals.o \
+./src/stages.o \
+./src/sysfun.o 
 
 C_DEPS += \
 ./src/SteeringLock.d \
-./src/engine.d 
+./src/engine.d \
+./src/signals.d \
+./src/stages.d \
+./src/sysfun.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
