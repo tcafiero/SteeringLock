@@ -24,9 +24,20 @@ extern enum STAGE Stage;
 
 #define Stage_init Stage=StageInitial
 
+#ifdef STAGE_TRACE
+#define Stage_set(name) {\
+		if(result) {\
+		printf("Stage from:%s to:%s\n",stage_name[Stage], stage_name[name]);\
+		fflush(stdout);\
+		Stage=name;\
+		}\
+	}
+#else
 #define Stage_set(name) {\
 		if(result) Stage=name;\
 	}
+
+#endif
 
 #define Stage_check(name) (Stage == (name))
 

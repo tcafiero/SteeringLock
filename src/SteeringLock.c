@@ -7,7 +7,7 @@
  Description : Railway signalling in C, Ansi-style
  ============================================================================
  */
-#define TRACE
+#define STAGE_TRACE
 
 
 #include <stdio.h>
@@ -20,14 +20,15 @@
 void SYS_FUN_001(){
 	SYS_FUN_entry;
 	SYS_FUN_gate(Stage_check(StageInitial));
-	context(4 == 4, printf("zero\n"); printf("uno\n"); printf("due\n");, &= );
+//	context(4 == 4, printf("zero\n"); printf("uno\n"); printf("due\n");, &= );
 	SYS_FUN_exit;
 }
 
 void SYS_FUN_002(){
 	SYS_FUN_entry;
-	SYS_FUN_gate(Stage_check(StageInitial) /* || Stage_check(NegativeUnlockFeedback) */);
-	context(pippo_get() == pluto_get(), ;, &= );
+	SYS_FUN_gate(Stage_check(NegativeUnlockFeedback) /* || Stage_check(NegativeUnlockFeedback) */);
+	context(pippo_get() == pluto_get(), pluto_set(pluto_get()+1);, &= );
+	Stage_set(StageInitial);
 	SYS_FUN_exit;
 }
 

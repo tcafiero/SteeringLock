@@ -28,7 +28,7 @@ void SYS_FUN_iterate();
 
 #define SYS_FUN_entry int result=1
 
-#ifdef TRACE
+#ifdef SYS_FUN_TRACE
 #define SYS_FUN_exit printf("%s=%d\n", __func__, result );\
 		return
 #else
@@ -38,8 +38,8 @@ void SYS_FUN_iterate();
 #define SYS_FUN_gate(condition) if(!(condition)) return
 
 #define context(evaluation, action, contribution) {\
-	if(evaluation) {action;}\
 	result contribution (evaluation);\
+	if(evaluation) {action;}\
 }
 
 #endif
