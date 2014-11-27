@@ -24,6 +24,9 @@ extern enum STAGE Stage;
 
 #define Stage_init Stage=StageInitial
 
+#if OPTIMIZE
+#define Stage_set(name)
+#else
 #ifdef STAGE_TRACE
 #define Stage_set(name) {\
 		if(result) {\
@@ -38,6 +41,8 @@ extern enum STAGE Stage;
 	}
 
 #endif
+#endif
+
 
 #define Stage_check(name) (Stage == (name))
 

@@ -16,7 +16,7 @@
 #include "signals.h"
 #include "stages.h"
 
-/* define here SYS_FUN behavior */
+/* define here SYS_FUN behaviour */
 void SYS_FUN_001(){
 	SYS_FUN_entry;
 	SYS_FUN_gate(Stage_check(StageInitial));
@@ -39,7 +39,7 @@ void SYS_FUN_030(){
 	Stage_set(NegativeUnlockFeedback);
 	SYS_FUN_exit;
 }
-/* end of define SYS_FUN behavior */
+/* end of define SYS_FUN behaviour */
 
 /* called once at startup */
 void setup(void) {
