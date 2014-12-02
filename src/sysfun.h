@@ -18,15 +18,22 @@
 #define FALSE 0;
 #endif
 
+#define OR ||
+
+
 #include "sysfun_table.h"
 #define X(name) void name();
 	SYS_FUN_TABLE
 #undef X
 
+#ifdef OPTIMIZE
+char *legalchar(const char *string);
+#endif
+
 void SYS_FUN_iterate();
 
 #ifdef OPTIMIZE
-#define SYS_FUN_entry printf("<SYS_FUN>\n<NAME>%s</NAME>\n", __func__)
+#define SYS_FUN_entry printf("<SYS_FUN>\n<NAME>%s</NAME>\n", legalchar(__func__))
 #else
 #define SYS_FUN_entry int result=1
 #endif
@@ -44,16 +51,24 @@ void SYS_FUN_iterate();
 #endif
 
 #ifdef OPTIMIZE
-#define SYS_FUN_gate(condition) printf("<GATE>%s</GATE>\n", # condition)
+#define SYS_FUN_gate(condition) printf("<GATE>\n");\
+			condition\
+			printf("</GATE>\n")
+#else
+#ifdef OPTIMIZED
+#define STS_FUN_gate(condition)
 #else
 #define SYS_FUN_gate(condition) if(!(condition)) return
 #endif
+#endif
 
 #ifdef OPTIMIZE
-#define context(evaluation, action, contribution) printf("<CONTEXT><EVALUATION>%s</EVALUATION><ACTION>%s</ACTION><CONTRIBUTION>%s</CONTRIBUTION>\n", # evaluation, # action, # contribution)
+#define context(evaluation, action, contribution) printf("<CONTEXT>\n<EVALUATION>%s</EVALUATION>\n",legalchar(#evaluation));\
+		printf("<ACTION>%s</ACTION>\n",legalchar(#action));\
+		printf("<CONTRIBUTION>%s</CONTRIBUTION>\n</CONTEXT>\n",legalchar(#contribution))
 #else
 #define context(evaluation, action, contribution) {\
-	result contribution (evaluation);\
+	result = result contribution (evaluation);\
 	if(evaluation) {action;}\
 }
 #endif

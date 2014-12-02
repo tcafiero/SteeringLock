@@ -12,6 +12,10 @@
 
 #include "stages_table.h"
 
+#ifdef OPTIMIZE
+char *legalchar(const char *string);
+#endif
+
 #define X(a) a,
 enum STAGE {
 		STAGE_TABLE
@@ -44,7 +48,20 @@ extern enum STAGE Stage;
 #endif
 
 
-#define Stage_check(name) (Stage == (name))
+#ifdef OPTIMIZE
+#ifdef OR
+#undef OR
+#define OR
+#endif
+#define check(name, value) printf("<CHECK>\n<NAME>%s</NAME>\n", legalchar(#name));\
+	printf("<VALUE>%s</VALUE>\n</CHECK>\n", legalchar(# value));
+#else
+#ifdef OPTIMIZED
+#define check(name, value)
+#else
+#define check(name, value) ( name == (value))
+#endif
+#endif
 
 #define Stage_print printf("Stage = %s\n", stage_name[Stage]);
 
