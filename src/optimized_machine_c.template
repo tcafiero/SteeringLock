@@ -1,0 +1,52 @@
+/*
+ ============================================================================
+ Name        : optimized_machine.c
+ Author      : Toni Cafiero
+ Version     :
+ Copyright   : Holistic Systems all right reserved
+ Description : Railway signalling in C, Ansi-style
+ ============================================================================
+ */
+
+
+/* called once at startup */
+void setup(void) {
+	Stage_init;
+}
+
+/* called every 20 ms */
+void loop(void)
+{
+<% 	if !alwaysCall.nil?
+	alwaysCall.each do |sysfun, value| %>
+<%= sysfun %>();
+<%	end 
+	end%>
+<% 	p stage
+	if !stage.nil?
+	stage.each do |switch_name, check| %>
+	switch(<%= switch_name %>)
+	{
+<% 	p "CHECK:"
+	p check
+	if !check.nil?
+	check.each do |key, call_array|
+	p call_array %>
+	case <%= key %>: 
+<%	if !call_array.nil?
+	call_array.each do |call| %>
+	<%= call %>();
+<%	end
+	end %>
+	break;
+<%	end 
+	end%>
+	
+	default: break;
+	}
+<%	end 
+	end%>
+
+	return;
+}
+

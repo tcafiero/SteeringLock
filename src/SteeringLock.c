@@ -19,14 +19,14 @@
 /* define here SYS_FUN behaviour */
 void SYS_FUN_001(){
 	SYS_FUN_entry;
-	SYS_FUN_gate(check(Stage,StageInitial));
+//	SYS_FUN_gate(check(Stage,StageInitial));
 //	context(4 == 4, printf("zero\n"); printf("uno\n"); printf("due\n");, &= );
 	SYS_FUN_exit;
 }
 
 void SYS_FUN_002(){
 	SYS_FUN_entry;
-	SYS_FUN_gate(check(Stage,NegativeUnlockFeedback) OR check(Stage,NegativeUnlockFeedback));
+	SYS_FUN_gate(check(Stage,NegativeUnlockFeedback) OR check(Stage,StageInitial));
 	context(pippo_get() == pluto_get(), pluto_set(pluto_get()+1);, && );
 	Stage_set(StageInitial);
 	SYS_FUN_exit;

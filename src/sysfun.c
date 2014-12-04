@@ -17,7 +17,7 @@
 static char string2[4096];
 char *str_replace(char *orig, char *rep, char *with)
 {
-	int i;
+//	int i;
 	char *p;
 	char *orig2;
 	orig2=malloc(strlen(orig)+strlen(rep)+strlen(with));
@@ -25,7 +25,7 @@ char *str_replace(char *orig, char *rep, char *with)
 	sprintf(orig2,"%s",orig);
 	p=strstr(orig2, rep);
 	if(p == NULL) {free(orig2); return NULL;}
-	i=p-orig2;
+//	i=p-orig2;
 	p[0]=0;
 	sprintf(string2,"%s%s%s",orig2,with,&p[strlen(rep)]);
 	str_replace(string2, rep, with);
@@ -35,9 +35,9 @@ char *str_replace(char *orig, char *rep, char *with)
 char *legalchar(const char *string)
 {
 	strcpy(string2,string);
-	str_replace(string2, "\x26", "acafe");
+	str_replace(string2, "\x26", "abadcafe");
 	str_replace(string2, "\x22", "&quot;");
-	str_replace(string2, "acafe", "&amp;");
+	str_replace(string2, "abadcafe", "&amp;");
 	str_replace(string2, "\x27", "&apos;");
 	str_replace(string2, "\x3C", "&lt;");
 	str_replace(string2, "\x3E", "&gt;");

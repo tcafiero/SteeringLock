@@ -33,7 +33,7 @@ char *legalchar(const char *string);
 void SYS_FUN_iterate();
 
 #ifdef OPTIMIZE
-#define SYS_FUN_entry printf("<SYS_FUN>\n<NAME>%s</NAME>\n", legalchar(__func__))
+#define SYS_FUN_entry printf("<SYS_FUN NAME=\"%s\">\n", legalchar(__func__))
 #else
 #define SYS_FUN_entry int result=1
 #endif

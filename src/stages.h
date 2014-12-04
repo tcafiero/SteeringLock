@@ -28,7 +28,7 @@ extern enum STAGE Stage;
 
 #define Stage_init Stage=StageInitial
 
-#if OPTIMIZE
+#ifdef OPTIMIZE
 #define Stage_set(name)
 #else
 #ifdef STAGE_TRACE
@@ -53,8 +53,8 @@ extern enum STAGE Stage;
 #undef OR
 #define OR
 #endif
-#define check(name, value) printf("<CHECK>\n<NAME>%s</NAME>\n", legalchar(#name));\
-	printf("<VALUE>%s</VALUE>\n</CHECK>\n", legalchar(# value));
+#define check(name, value) printf("<CHECK NAME=\"%s\">\n", legalchar(#name));\
+	printf("<VALUE>%s</VALUE></CHECK>\n", legalchar(#value));
 #else
 #ifdef OPTIMIZED
 #define check(name, value)
