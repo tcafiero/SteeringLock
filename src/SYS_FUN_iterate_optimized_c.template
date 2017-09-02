@@ -1,37 +1,34 @@
 /*
  ============================================================================
- Name        : optimized_machine.c
+ Name        : SYS_FUN_iterate_optimized.c
  Author      : Toni Cafiero
  Version     :
- Copyright   : Holistic Systems all right reserved
- Description : Railway signalling in C, Ansi-style
+ Copyright   : IoThingsWare all rights reserved
+ Description : Signal Management Engine in C, Ansi-style
  ============================================================================
  */
 
+#include "sysfun.h"
+#include "signals.h"
+#include "stages.h"
 
-/* called once at startup */
-void setup(void) {
-	Stage_init;
-}
-
-/* called every 20 ms */
-void loop(void)
+/* called in main loop every 20 ms */
+void SYS_FUN_iterate_optimized()
 {
 <% 	if !alwaysCall.nil?
 	alwaysCall.each do |sysfun, value| %>
 <%= sysfun %>();
 <%	end 
 	end%>
-<% 	p stage
+<%
 	if !stage.nil?
 	stage.each do |switch_name, check| %>
 	switch(<%= switch_name %>)
 	{
-<% 	p "CHECK:"
-	p check
+<%
 	if !check.nil?
 	check.each do |key, call_array|
-	p call_array %>
+%>
 	case <%= key %>: 
 <%	if !call_array.nil?
 	call_array.each do |call| %>

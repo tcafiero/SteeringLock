@@ -3,8 +3,8 @@
  Name        : SteeringLock.c
  Author      : Toni Cafiero
  Version     :
- Copyright   : Holistic Systems all right reserved
- Description : Railway signalling in C, Ansi-style
+ Copyright   : IoThingsWare all rights reserved
+ Description : Signal Management Engine in C, Ansi-style
  ============================================================================
  */
 #define STAGE_TRACE
@@ -67,7 +67,11 @@ void loop(void)
 #endif
 	BatteryValue_set(9.0);
 	UnlockInProcess_set(0);
+#ifdef OPTIMIZED
+	SYS_FUN_iterate_optimized();
+#else
 	SYS_FUN_iterate();
+#endif
 //	Stage_print;
 	return;
 }

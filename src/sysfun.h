@@ -3,8 +3,8 @@
  Name        : sysfun.h
  Author      : Toni Cafiero
  Version     :
- Copyright   : Holistic Systems all right reserved
- Description : Railway signalling in C, Ansi-style
+ Copyright   : IoThingsWare all rights reserved
+ Description : Signal Management Engine in C, Ansi-style
  ============================================================================
  */
 
@@ -18,7 +18,11 @@
 #define FALSE 0;
 #endif
 
+#ifdef OPTIMIZED
+#define OR
+#else
 #define OR ||
+#endif
 
 
 #include "sysfun_table.h"
@@ -30,7 +34,11 @@
 char *legalchar(const char *string);
 #endif
 
-void SYS_FUN_iterate();
+#ifdef OPTIMIZED
+	void SYS_FUN_iterate_optimized();
+#else
+	void SYS_FUN_iterate();
+#endif
 
 #ifdef OPTIMIZE
 #define SYS_FUN_entry printf("<SYS_FUN NAME=\"%s\">\n", legalchar(__func__))
@@ -56,7 +64,7 @@ void SYS_FUN_iterate();
 			printf("</GATE>\n")
 #else
 #ifdef OPTIMIZED
-#define STS_FUN_gate(condition)
+#define SYS_FUN_gate(condition)
 #else
 #define SYS_FUN_gate(condition) if(!(condition)) return
 #endif

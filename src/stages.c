@@ -3,8 +3,8 @@
  Name        : stages.c
  Author      : Toni Cafiero
  Version     :
- Copyright   : Holistic Systems all right reserved
- Description : Railway signalling in C, Ansi-style
+ Copyright   : IoThingsWare all rights reserved
+ Description : Signal Management Engine in C, Ansi-style
  ============================================================================
  */
 #include "stages.h"
